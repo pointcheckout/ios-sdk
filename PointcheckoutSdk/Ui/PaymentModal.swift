@@ -68,11 +68,11 @@ class PaymentModal: UIView, WKNavigationDelegate {
     }
     
     func getBaseUrl() -> String {
-        return environment.getUrl() + "/embedded" + "/" + language
+        return environment.getUrl() + "/embedded"
     }
     
     func getCheckoutUrl() -> String {
-        return (getBaseUrl() + "/pay-mobile?checkoutKey=" + checkoutKey)
+        return (getBaseUrl() + "/pay?checkoutKey=" + checkoutKey)
     }
     
     fileprivate let container: UIView = {
