@@ -1,14 +1,16 @@
-# PC IOS SDK
+# PointCheckout Merchant SDK
 
 
 ### Example app
-There is an example app at [TDODO: addurl]. You can import the example app to [XCode](https://developer.apple.com/xcode/) to see how the SDK can be used.
+There is an example app [here](https://github.com/pointcheckout/merchant-ios-sdk-demo). You can import the example app to [XCode](https://developer.apple.com/xcode/) to see how the SDK can be used.
 
 ### Getting started
 
- - Download the `.framework` file from here [TODO: addUrl]
- - Add the downloaded file to the embedded binaries of your project.
- - Rebuild your project.
+ - Add PointCheckoutSdk pod to your podfile:
+ `pod 'PointCheckoutSdk', :git => 'git@github.com:pointcheckout/merchant-ios-sdk.git', :tag=> ${version}`
+> replace ${version} with the latest version of the SDK, you can check all available versions [here](https://github.com/pointcheckout/merchant-ios-sdk/releases), example:  `pod 'PointCheckoutSdk', :git => 'git@github.com:pointcheckout/merchant-ios-sdk.git', :tag=> 0.1`
+ - Execute `pod install` inside the project directory.
+ - Re-build the project.
 
 ### Using the SDK
 
@@ -16,7 +18,7 @@ First you will need a `checkoutKey` which can be obtained via PointCheckout's AP
 
 #### Import
 
-You can import the framework using `import pc_ios_sdk`
+You can import the framework using `import PointCheckoutSdk`
 
 #### Create PointCheckoutClient
 
@@ -111,7 +113,7 @@ Use `PointCheckoutPaymentDelegate` to listen for payment updates.
 
 ```swift
 import UIKit
-import pc_ios_sdk
+import PointCheckoutSdk
 
 class ViewController: UIViewController, PointCheckoutPaymentDelegate{
 
