@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  PointCheckoutSdk
+
+  Created by Abdullah Asendar on 9/24/19.
+  Copyright © 2019 PointCheckout. All rights reserved.
+*/
+"Error"="خطأ";
+"PointCheckout payment can not run on this device due to security reasons."="لا يمكن تشغيل طريقة الدفع PointCheckout على جهازك لانه ليس امنا";
+"Ok"="موافق";
