@@ -1,8 +1,6 @@
 # PointCheckout Merchant SDK
 
-
-### Example app
-There is an example app [here](https://github.com/pointcheckout/merchant-ios-sdk-demo). You can import the example app to [XCode](https://developer.apple.com/xcode/) to see how the SDK can be used.
+These are the minimum required steps to use the PointCheckout SDK in your IOS app.
 
 ### Getting started
 
@@ -68,3 +66,6 @@ class ViewController: UIViewController, PointCheckoutPaymentDelegate{
     }
 }
 ```
+
+### Demo app
+You can use our Demo app as an example of how to integrate our SDK on your application. you can access it from [here](https://github.com/pointcheckout/merchant-ios-sdk-demo). You can import the example app to Android Studio to see how the SDK can be used.
