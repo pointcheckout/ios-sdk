@@ -1,6 +1,6 @@
 //
 //  PaymentDelegate.swift
-//  pc ios sdk
+//  PointCheckoutSdk
 //
 //  Created by Abdullah Asendar on 6/24/19.
 //  Copyright © 2019 PointCheckout. All rights reserved.

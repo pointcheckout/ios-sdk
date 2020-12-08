@@ -1,6 +1,6 @@
 //
 //  PaymentModal.swift
-//  pc ios sdk
+//  PointCheckoutSdk
 //
 //  Created by Abdullah Asendar on 6/24/19.
 //  Copyright © 2019 PointCheckout. All rights reserved.
@@ -11,16 +11,16 @@ import WebKit
 
 class PaymentModal: UIView, WKNavigationDelegate {
     
-    var checkoutKey: String
+    var paymentUrl: String
+    var resultUrl: String?
     var delegate: PaymentDelegate
     var environment: PointCheckoutEnvironment
-    var language: String
     
-    init(environment: PointCheckoutEnvironment, language: String, checkoutKey: String, delegate: PaymentDelegate){
-        self.checkoutKey = checkoutKey
+    init(paymentUrl: String,resultUrl: String?, delegate: PaymentDelegate){
+        self.paymentUrl = paymentUrl
+        self.resultUrl = resultUrl
         self.delegate = delegate
-        self.environment = environment
-        self.language = language
+        self.environment = PointCheckoutEnvironment.getEnviornment(paymentUrl)!
         super.init(frame: CGRect.zero)
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismiss)))
         self.backgroundColor = UIColor.gray.withAlphaComponent(0.6)
@@ -34,7 +34,7 @@ class PaymentModal: UIView, WKNavigationDelegate {
         
         container.addSubview(stack)
         
-        webView.load(URLRequest(url: URL(string: getCheckoutUrl())!))
+        webView.load(URLRequest(url: URL(string: paymentUrl)!))
         webView.addObserver(self, forKeyPath: "URL", options: .new, context: nil)
         animateIn()
     }
@@ -45,16 +45,14 @@ class PaymentModal: UIView, WKNavigationDelegate {
     
     override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == #keyPath(WKWebView.url) {
-            
-            let url = self.webView.url!.absoluteString
-            if url.hasPrefix(getBaseUrl() + "/complete/") {
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    self.animateOut()
-                    self.delegate.onPaymentUpdate()
-                }
+            if(webView.url == nil){
+                return
             }
-            if !url.hasPrefix(environment.getUrl()) {
+            let url = self.webView.url!.absoluteString
+            
+            print("URL: \(url)")
+            
+            if paymentComplete(url){
                 self.animateOut()
                 self.delegate.onPaymentUpdate()
             }
@@ -67,12 +65,21 @@ class PaymentModal: UIView, WKNavigationDelegate {
         }
     }
     
-    func getBaseUrl() -> String {
-        return environment.getUrl() + "/embedded"
+    func paymentComplete(_ url: String) -> Bool{
+        
+        let COMPLETE = "/complete/";
+        let SUCCESS = "/success-redirect/";
+        
+        if(self.resultUrl != nil){
+            return url.hasPrefix(self.resultUrl!)
+        }
+        
+        return url.hasPrefix(getBaseUrl() + COMPLETE) ||
+            url.hasPrefix(getBaseUrl() + SUCCESS);
     }
     
-    func getCheckoutUrl() -> String {
-        return (getBaseUrl() + "/pay?checkoutKey=" + checkoutKey)
+    func getBaseUrl() -> String {
+        return environment.getUrl()
     }
     
     fileprivate let container: UIView = {
