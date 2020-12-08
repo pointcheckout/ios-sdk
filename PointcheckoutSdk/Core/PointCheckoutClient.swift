@@ -10,34 +10,34 @@ import UIKit
 
 public class PointCheckoutClient {
         
-    public static func pay(controller: UIViewController, paymentUrl: String, delegate: PaymentDelegate){
+    public static func pay(controller: UIViewController, redirectUrl: String, delegate: PaymentDelegate){
         
-        if !validate(controller, paymentUrl) {
+        if !validate(controller, redirectUrl) {
             return
         }
         
-        let pop = PaymentModal(paymentUrl: paymentUrl, resultUrl: nil,delegate: delegate)
+        let pop = PaymentModal(redirectUrl: redirectUrl, resultUrl: nil,delegate: delegate)
         controller.view.addSubview(pop)
     }
     
-    public static func pay(controller: UIViewController, paymentUrl: String, resultUrl: String, delegate: PaymentDelegate){
+    public static func pay(controller: UIViewController, redirectUrl: String, resultUrl: String, delegate: PaymentDelegate){
         
-        if !validate(controller, paymentUrl) {
+        if !validate(controller, redirectUrl) {
             return
         }
         
-        let pop = PaymentModal(paymentUrl: paymentUrl,resultUrl: resultUrl, delegate: delegate)
+        let pop = PaymentModal(redirectUrl: redirectUrl,resultUrl: resultUrl, delegate: delegate)
         controller.view.addSubview(pop)
     }
     
-    private static func validate(_ controller: UIViewController, _ paymentUrl: String) -> Bool {
+    private static func validate(_ controller: UIViewController, _ redirectUrl: String) -> Bool {
         if PointCheckoutUtils.isJailbroken() {
             alert(controller, "Error", "PointCheckout payment can not run on this device due to security reasons.")
             return false
         }
         
-        if(PointCheckoutEnvironment.getEnviornment(paymentUrl) == nil) {
-            alert(controller, "Error", "The provided payment url is invalid")
+        if(PointCheckoutEnvironment.getEnviornment(redirectUrl) == nil) {
+            alert(controller, "Error", "The provided redirectUrl is invalid")
             return false
         }
         

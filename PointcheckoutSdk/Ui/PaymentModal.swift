@@ -11,16 +11,16 @@ import WebKit
 
 class PaymentModal: UIView, WKNavigationDelegate {
     
-    var paymentUrl: String
+    var redirectUrl: String
     var resultUrl: String?
     var delegate: PaymentDelegate
     var environment: PointCheckoutEnvironment
     
-    init(paymentUrl: String,resultUrl: String?, delegate: PaymentDelegate){
-        self.paymentUrl = paymentUrl
+    init(redirectUrl: String,resultUrl: String?, delegate: PaymentDelegate){
+        self.redirectUrl = redirectUrl
         self.resultUrl = resultUrl
         self.delegate = delegate
-        self.environment = PointCheckoutEnvironment.getEnviornment(paymentUrl)!
+        self.environment = PointCheckoutEnvironment.getEnviornment(redirectUrl)!
         super.init(frame: CGRect.zero)
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismiss)))
         self.backgroundColor = UIColor.gray.withAlphaComponent(0.6)
@@ -34,7 +34,7 @@ class PaymentModal: UIView, WKNavigationDelegate {
         
         container.addSubview(stack)
         
-        webView.load(URLRequest(url: URL(string: paymentUrl)!))
+        webView.load(URLRequest(url: URL(string: redirectUrl)!))
         webView.addObserver(self, forKeyPath: "URL", options: .new, context: nil)
         animateIn()
     }

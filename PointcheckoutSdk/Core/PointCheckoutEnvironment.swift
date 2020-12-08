@@ -25,9 +25,9 @@ public enum PointCheckoutEnvironment {
         return "https://pay.staging.pointcheckout.com"
     }
     
-    static func getEnviornment(_ paymentUrl: String) -> PointCheckoutEnvironment?{
+    static func getEnviornment(_ redirectUrl: String) -> PointCheckoutEnvironment?{
         
-        let url = URL(string: paymentUrl);
+        let url = URL(string: redirectUrl);
         if (!(url?.host?.hasSuffix("pointcheckout.com") ?? false)){
             return nil;
         }
