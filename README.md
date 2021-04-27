@@ -7,8 +7,8 @@ There is an example app [here](https://github.com/pointcheckout/merchant-ios-sdk
 ### Getting started
 
  - Add PointCheckoutSdk pod to your podfile:
- `pod 'PointCheckoutSdk', :git => 'git@github.com:pointcheckout/merchant-ios-sdk.git', :tag=> ${version}`
-> replace ${version} with the latest version of the SDK, you can check all available versions [here](https://github.com/pointcheckout/merchant-ios-sdk/releases), example:  `pod 'PointCheckoutSdk', :git => 'git@github.com:pointcheckout/merchant-ios-sdk.git', :tag=> 0.1`
+ `pod 'PointCheckoutSdk', :git => 'git@github.com:pointcheckout/ios-sdk.git', :tag=> ${version}`
+> replace ${version} with the latest version of the SDK, you can check all available versions [here](https://github.com/pointcheckout/ios-sdk/releases), example:  `pod 'PointCheckoutSdk', :git => 'git@github.com:pointcheckout/ios-sdk.git', :tag=> 0.1`
  - Execute `pod install` inside the project directory.
  - Re-build the project.
 
