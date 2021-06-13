@@ -13,7 +13,9 @@ These are the minimum required steps to use the PointCheckout SDK in your IOS ap
 ### Using the SDK
 The bellow diagram shows how the payment process works:
 ![][img_sequence]
+
 [img_sequence]: https://static.staging.pointcheckout.com/17a04be6556a64cc/original
+
 
 #### Import
 
