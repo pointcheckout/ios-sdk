@@ -24,12 +24,22 @@ You can import the framework using `import PointCheckoutSdk`
 
 Send new checkout request to PointCheckout's API (check the [documentation](https://www.pointcheckout.com/en/developers/api/api-integration) for more details). 
 
+#### Create PointCheckoutClient
+Create an object of PointCheckoutClient:
+
+```swift
+var pcClient = PointCheckoutClient(environment)
+```
+> environment: specifies the environment of the app, use Environment.TEST for testing purposes.
+
+> Keep a reference of the created client to reuse the same instance
+
 #### Payment submit
 
 To submit a payment call the static `pay` function of the `PointCheckoutClient`:
 
 ```swift
-PointCheckoutClient.pay(controller: viewController, checkoutKey: strCheckoutKey, delegate: callback)
+pcClient.pay(controller: viewController, checkoutKey: strCheckoutKey, delegate: callback)
 ```
 
 | Parameter   | Description                                                      |
