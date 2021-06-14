@@ -69,7 +69,7 @@ class PaymentModal: UIView, WKNavigationDelegate {
     }
     
     func getPaymentUrl(_ checkoutKey: String) -> String {
-        return environment.getUrl() + "/checkout/" + checkoutKey;
+        return environment.getUrl() + "/embedded/checkout/" + checkoutKey;
     }
     
     
