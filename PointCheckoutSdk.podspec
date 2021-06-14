@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "PointCheckoutSdk"
-  s.version      = "1.2"
+  s.version      = "1.3"
   s.summary      = "PointCheckout Merchant Sdk"
   s.description  = "PointCheckout Merchant Sdk used to process payments"
   s.homepage     = "https://github.com/pointcheckout/ios-sdk"
