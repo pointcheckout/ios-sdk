@@ -9,35 +9,27 @@
 import UIKit
 
 public class PointCheckoutClient {
+    
+    
+    var environment: PointCheckoutEnvironment
+    
+    public init(environment: PointCheckoutEnvironment) {
+        self.environment = environment
+    }
+    
+    public func pay(controller: UIViewController, checkoutKey: String, delegate: PaymentDelegate){
         
-    public static func pay(controller: UIViewController, redirectUrl: String, delegate: PaymentDelegate){
-        
-        if !validate(controller, redirectUrl) {
+        if !validate(controller) {
             return
         }
         
-        let pop = PaymentModal(redirectUrl: redirectUrl, resultUrl: nil,delegate: delegate)
+        let pop = PaymentModal(environment: environment, checkoutKey: checkoutKey, delegate: delegate)
         controller.view.addSubview(pop)
     }
     
-    public static func pay(controller: UIViewController, redirectUrl: String, resultUrl: String, delegate: PaymentDelegate){
-        
-        if !validate(controller, redirectUrl) {
-            return
-        }
-        
-        let pop = PaymentModal(redirectUrl: redirectUrl,resultUrl: resultUrl, delegate: delegate)
-        controller.view.addSubview(pop)
-    }
-    
-    private static func validate(_ controller: UIViewController, _ redirectUrl: String) -> Bool {
+    private func validate(_ controller: UIViewController) -> Bool {
         if PointCheckoutUtils.isJailbroken() {
             alert(controller, "Error", "PointCheckout payment can not run on this device due to security reasons.")
-            return false
-        }
-        
-        if(PointCheckoutEnvironment.getEnviornment(redirectUrl) == nil) {
-            alert(controller, "Error", "The provided redirectUrl is invalid")
             return false
         }
         
@@ -45,7 +37,7 @@ public class PointCheckoutClient {
     }
     
     
-    private static func alert(_ controller: UIViewController,_ title: String, _ message: String){
+    private func alert(_ controller: UIViewController,_ title: String, _ message: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
         controller.present(alert, animated: true, completion: nil)

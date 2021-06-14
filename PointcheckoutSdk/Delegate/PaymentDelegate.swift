@@ -7,6 +7,6 @@
 //
 
 public protocol PaymentDelegate: AnyObject {
-    func onPaymentCancel()
-    func onPaymentUpdate()
+    func onUpdate()
+    func onDismiss()
 }

@@ -11,16 +11,14 @@ import WebKit
 
 class PaymentModal: UIView, WKNavigationDelegate {
     
-    var redirectUrl: String
-    var resultUrl: String?
-    var delegate: PaymentDelegate
     var environment: PointCheckoutEnvironment
+    var checkoutKey: String
+    var delegate: PaymentDelegate
     
-    init(redirectUrl: String,resultUrl: String?, delegate: PaymentDelegate){
-        self.redirectUrl = redirectUrl
-        self.resultUrl = resultUrl
+    init(environment: PointCheckoutEnvironment,checkoutKey: String, delegate: PaymentDelegate){
+        self.environment = environment
+        self.checkoutKey = checkoutKey
         self.delegate = delegate
-        self.environment = PointCheckoutEnvironment.getEnviornment(redirectUrl)!
         super.init(frame: CGRect.zero)
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismiss)))
         self.backgroundColor = UIColor.gray.withAlphaComponent(0.6)
@@ -34,7 +32,7 @@ class PaymentModal: UIView, WKNavigationDelegate {
         
         container.addSubview(stack)
         
-        webView.load(URLRequest(url: URL(string: redirectUrl)!))
+        webView.load(URLRequest(url: URL(string: self.getPaymentUrl(checkoutKey))!))
         webView.addObserver(self, forKeyPath: "URL", options: .new, context: nil)
         animateIn()
     }
@@ -52,35 +50,28 @@ class PaymentModal: UIView, WKNavigationDelegate {
             
             print("URL: \(url)")
             
-            if paymentComplete(url){
+            if isDone(url){
                 self.animateOut()
-                self.delegate.onPaymentUpdate()
+                self.delegate.onUpdate()
             }
-            
-            if url.hasPrefix(getBaseUrl() + "/cancel/") {
-                self.dismiss()
-                
-            }
-            
         }
     }
     
-    func paymentComplete(_ url: String) -> Bool{
+    func isDone(_ url: String) -> Bool{
         
-        let COMPLETE = "/complete/";
-        let SUCCESS = "/success-redirect/";
+        let COMPLETE = "/complete";
+        let SUCCESS = "/success-redirect";
+        let CONFIRMATION = "/payment-confirmation";
         
-        if(self.resultUrl != nil){
-            return url.hasPrefix(self.resultUrl!)
-        }
-        
-        return url.hasPrefix(getBaseUrl() + COMPLETE) ||
-            url.hasPrefix(getBaseUrl() + SUCCESS);
+        return url.hasPrefix(url + COMPLETE) ||
+            url.hasPrefix(url + SUCCESS) ||
+            url.hasPrefix(url + CONFIRMATION);
     }
     
-    func getBaseUrl() -> String {
-        return environment.getUrl()
+    func getPaymentUrl(_ checkoutKey: String) -> String {
+        return environment.getUrl() + "/checkout/" + checkoutKey;
     }
+    
     
     fileprivate let container: UIView = {
         let v = UIView()
@@ -104,7 +95,7 @@ class PaymentModal: UIView, WKNavigationDelegate {
     
     @objc fileprivate func dismiss() {
         animateOut()
-        delegate.onPaymentCancel()
+        delegate.onDismiss()
         
     }
     
