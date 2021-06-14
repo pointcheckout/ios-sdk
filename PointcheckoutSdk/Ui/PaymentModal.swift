@@ -63,9 +63,9 @@ class PaymentModal: UIView, WKNavigationDelegate {
         let SUCCESS = "/success-redirect";
         let CONFIRMATION = "/payment-confirmation";
         
-        return url.hasPrefix(url + COMPLETE) ||
-            url.hasPrefix(url + SUCCESS) ||
-            url.hasPrefix(url + CONFIRMATION);
+        return url.hasPrefix(environment.getUrl()  + COMPLETE) ||
+            url.hasPrefix(environment.getUrl()  + SUCCESS) ||
+            url.hasPrefix(environment.getUrl()  + CONFIRMATION);
     }
     
     func getPaymentUrl(_ checkoutKey: String) -> String {
