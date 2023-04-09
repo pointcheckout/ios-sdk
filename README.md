@@ -4,13 +4,14 @@ These are the minimum required steps to use the PointCheckout SDK in your IOS ap
 
 ### Getting started
 
- - Add PointCheckoutSdk pod to your podfile:
- `pod 'PointCheckoutSdk', :git => 'git@github.com:pointcheckout/merchant-ios-sdk.git', :tag=> v${version}`
-> replace ${version} with the latest version of the SDK, you can check all available versions [here](https://github.com/pointcheckout/merchant-ios-sdk/releases), example:  `pod 'PointCheckoutSdk', :git => 'git@github.com:pointcheckout/merchant-ios-sdk.git', :tag=> v1.3`
- - Execute `pod install` inside the project directory.
- - Re-build the project.
+- Add PointCheckoutSdk pod to your podfile:
+  `pod 'PointCheckoutSdk', :git => 'git@github.com:pointcheckout/merchant-ios-sdk.git', :tag=> v${version}`
+  > replace ${version} with the latest version of the SDK, you can check all available versions [here](https://github.com/pointcheckout/merchant-ios-sdk/releases), example: `pod 'PointCheckoutSdk', :git => 'git@github.com:pointcheckout/merchant-ios-sdk.git', :tag=> v1.4`
+- Execute `pod install` inside the project directory.
+- Re-build the project.
 
 ### Using the SDK
+
 The bellow diagram shows how the payment process works:
 ![][img_sequence]
 
@@ -22,14 +23,16 @@ You can import the framework using `import PointCheckoutSdk`
 
 #### Checkout request
 
-Send new checkout request to PointCheckout's API (check the [documentation](https://www.pointcheckout.com/en/developers/api/api-integration) for more details). 
+Send new checkout request to PointCheckout's API (check the [documentation](https://www.pointcheckout.com/en/developers/api/api-integration) for more details).
 
 #### Create PointCheckoutClient
+
 Create an object of PointCheckoutClient:
 
 ```swift
 var pcClient = PointCheckoutClient(environment)
 ```
+
 > environment: specifies the environment of the app, use Environment.TEST for testing purposes.
 
 > Keep a reference of the created client to reuse the same instance
@@ -42,11 +45,11 @@ To submit a payment call the static `pay` function of the `PointCheckoutClient`:
 pcClient.pay(controller: viewController, checkoutKey: strCheckoutKey, delegate: callback)
 ```
 
-| Parameter   | Description                                                      |
-|-------------|------------------------------------------------------------------|
-| controller  | A UIViewController calling the pay function                      |
-| checkoutKey | This key is included in the checkout response from PointCheckout API|
-| delegate    | Delegate that will be called on payment update or cancellation   |
+| Parameter   | Description                                                          |
+| ----------- | -------------------------------------------------------------------- |
+| controller  | A UIViewController calling the pay function                          |
+| checkoutKey | This key is included in the checkout response from PointCheckout API |
+| delegate    | Delegate that will be called on payment update or cancellation       |
 
 Calling the `pay` function will open a modal and the user will be able to login and complete the payment.
 
@@ -62,13 +65,13 @@ class ViewController: UIViewController, PointCheckoutPaymentDelegate{
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
     }
-    
+
     func onUpdate(){
         print("UPDATE CALLBACK")
     }
-    
+
     func onDismiss(){
         print("USER CLOSED THE MODAL")
     }
@@ -79,6 +82,6 @@ class ViewController: UIViewController, PointCheckoutPaymentDelegate{
 
 `onDismiss` will only be called if the user closes the modal by clicking on close button.
 
-
 ### Demo app
+
 You can use our Demo app as an example of how to integrate our SDK on your application. you can access it from [here](https://github.com/pointcheckout/ios-sdk-demo). You can import the example app to Xcode and see how the SDK can be used.
