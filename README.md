@@ -6,7 +6,7 @@ These are the minimum required steps to use the PointCheckout SDK in your IOS ap
 
 - Add PointCheckoutSdk pod to your podfile:
   `pod 'PointCheckoutSdk', :git => 'git@github.com:pointcheckout/merchant-ios-sdk.git', :tag=> v${version}`
-  > replace ${version} with the latest version of the SDK, you can check all available versions [here](https://github.com/pointcheckout/merchant-ios-sdk/releases), example: `pod 'PointCheckoutSdk', :git => 'git@github.com:pointcheckout/merchant-ios-sdk.git', :tag=> v1.4`
+  > replace ${version} with the latest version of the SDK, you can check all available versions [here](https://github.com/pointcheckout/merchant-ios-sdk/tags), example: `pod 'PointCheckoutSdk', :git => 'git@github.com:pointcheckout/merchant-ios-sdk.git', :tag=> v1.4`
 - Execute `pod install` inside the project directory.
 - Re-build the project.
 
